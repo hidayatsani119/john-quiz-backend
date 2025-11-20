@@ -1,0 +1,6 @@
+import express from "express";
+import { router } from "../route/api";
+
+export const app = express();
+
+app.use("/api/", router);
