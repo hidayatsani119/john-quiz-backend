@@ -32,8 +32,36 @@ model Quiz {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
+  userId    String
+  user      User        @relation(fields: [userId], references: [id])
+  questions Quiestion[]
 
   @@map("quizzes")
+}
+
+enum QuestionType {
+  MULTIPLE_CHOICE
+  TRUE_FALSE
+}
+
+model Quiestion {
+  id     Int          @id @default(autoincrement())
+  quizId Int
+  quiz   Quiz         @relation(fields: [quizId], references: [id])
+  text   String
+  type   QuestionType @default(TRUE_FALSE)
+  points Int          @default(1)
+
+  options Option[]
+
+  @@map("questions")
+}
+
+model Option {
+  id         Int       @id @default(autoincrement())
+  questionId Int
+  question   Quiestion @relation(fields: [questionId], references: [id])
+
+  text     String
+  isCorret Boolean @default(false)
 }
