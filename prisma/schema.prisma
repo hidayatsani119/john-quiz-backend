@@ -33,8 +33,8 @@ model Quiz {
   updatedAt   DateTime @updatedAt
 
   userId    String
-  user      User        @relation(fields: [userId], references: [id])
-  questions Quiestion[]
+  user      User       @relation(fields: [userId], references: [id])
+  questions Question[]
 
   @@map("quizzes")
 }
@@ -44,7 +44,7 @@ enum QuestionType {
   TRUE_FALSE
 }
 
-model Quiestion {
+model Question {
   id     Int          @id @default(autoincrement())
   quizId Int
   quiz   Quiz         @relation(fields: [quizId], references: [id])
@@ -58,10 +58,12 @@ model Quiestion {
 }
 
 model Option {
-  id         Int       @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   questionId Int
-  question   Quiestion @relation(fields: [questionId], references: [id])
+  question   Question @relation(fields: [questionId], references: [id])
 
-  text     String
-  isCorret Boolean @default(false)
+  text      String
+  isCorrect Boolean @default(false)
+
+  @@map("options")
 }

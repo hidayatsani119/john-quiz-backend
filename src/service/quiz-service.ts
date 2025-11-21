@@ -8,7 +8,7 @@ import { Validation } from "../validation/validation";
 import crypto from "crypto";
 
 export class QuizService {
-  static async checkQuiz(user: JwtPayload, quizId: number) {
+  static async checkQuiz(user: JwtPayload, quizId: number): Promise<Quiz> {
     const quiz = await prisma.quiz.findUnique({
       where: {
         id: quizId,
