@@ -7,4 +7,8 @@ export class OptionValidation {
   });
 
   static readonly CREATEMANY = z.array(this.CREATE);
+
+  static readonly UPDATE = this.CREATE;
+
+  static readonly UPDATEMANY = this.CREATEMANY;
 }

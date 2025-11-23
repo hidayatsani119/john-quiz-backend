@@ -7,7 +7,7 @@
 
 //   @@map("Users")
 // }
-export type RegisteUserRequest = {
+export type RegisterUserRequest = {
   name: string;
   email: string;
   password: string;
@@ -18,7 +18,7 @@ export type LoginUserRequest = {
   password: string;
 };
 
-export type updateUserRequest = RegisteUserRequest;
+export type updateUserRequest = RegisterUserRequest;
 
 export type UserResponse = {
   name: string;

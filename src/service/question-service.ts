@@ -8,8 +8,8 @@ import { Validation } from "../validation/validation";
 import { QuizService } from "./quiz-service";
 
 export class QuestionService {
-  static async chechQuestion(user: JwtPayload, quizId: number, questionId: number): Promise<Question> {
-    const quiz = await QuizService.checkQuiz(user, questionId);
+  static async checkQuestion(user: JwtPayload, quizId: number, questionId: number): Promise<Question> {
+    const quiz = await QuizService.checkQuiz(user, quizId);
     const question = await prisma.question.findUnique({
       where: { id: questionId, quizId: quiz.id },
     });
@@ -21,12 +21,12 @@ export class QuestionService {
     return question;
   }
   static async create(user: JwtPayload, quizId: number, request: CreateQuestionRequest): Promise<Question> {
-    const quiz = await QuizService.checkQuiz(user, quizId);
+    await QuizService.checkQuiz(user, quizId);
     const createRequest = Validation.validate(QuestionValidation.CREATE, request);
 
     return await prisma.question.create({
       data: {
-        quizId: quiz.id,
+        quizId: quizId,
         text: createRequest.text,
         points: createRequest.points,
       },
@@ -35,10 +35,14 @@ export class QuestionService {
       },
     });
   }
+
+  static async get(user: JwtPayload, quizId: number, questionId: number): Promise<Question> {
+    return await this.checkQuestion(user, quizId, questionId);
+  }
   static async getAll(user: JwtPayload, quizId: number): Promise<Question[]> {
-    const quiz = await QuizService.checkQuiz(user, quizId);
+    await QuizService.checkQuiz(user, quizId);
     return await prisma.question.findMany({
-      where: { quizId: quiz.id },
+      where: { quizId: quizId },
       include: { options: true },
     });
   }
@@ -49,10 +53,10 @@ export class QuestionService {
     questionId: number,
     request: UpdateQuestionRequest
   ): Promise<Question> {
-    const quiz = await QuizService.checkQuiz(user, quizId);
+    await QuizService.checkQuiz(user, quizId);
     const updateRequest = Validation.validate(QuestionValidation.UPDATE, request);
     const question = await prisma.question.update({
-      where: { id: questionId, quizId: quiz.id },
+      where: { id: questionId, quizId: quizId },
       data: updateRequest,
     });
 
@@ -63,6 +67,6 @@ export class QuestionService {
     return question;
   }
   static async remove(user: JwtPayload, quizId: number, questionId: number) {
-    return await this.chechQuestion(user, quizId, questionId);
+    return await this.checkQuestion(user, quizId, questionId);
   }
 }

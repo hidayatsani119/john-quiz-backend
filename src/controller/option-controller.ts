@@ -1,6 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import { OptionService } from "../service/options-service";
-import { CreateManyOptionRequest, CreateOptionRequest } from "../type/option-type";
+import {
+  CreateManyOptionRequest,
+  CreateOptionRequest,
+  UpdateManyOptionRequest,
+  UpdateOptionRequest,
+} from "../type/option-type";
 import { RequestWithUser } from "../lib/jwt";
 
 export class OptionController {
@@ -35,6 +40,69 @@ export class OptionController {
       next(error);
     }
   }
+  static async get(req: RequestWithUser, res: Response, next: NextFunction) {
+    try {
+      const user = req.user!;
+      const questionId = Number(req.params.questionId);
+      const quizId = Number(req.params.quizId);
+      const optionId = Number(req.params.optionId);
+
+      const response = await OptionService.get(user, quizId, questionId, optionId);
+      res.status(200).json({
+        data: response,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getAll(req: RequestWithUser, res: Response, next: NextFunction) {
+    try {
+      const user = req.user!;
+      const questionId = Number(req.params.questionId);
+      const quizId = Number(req.params.quizId);
+
+      const response = await OptionService.getAll(user, quizId, questionId);
+      res.status(200).json({
+        data: response,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+  static async update(req: RequestWithUser, res: Response, next: NextFunction) {
+    try {
+      const user = req.user!;
+      const questionId = Number(req.params.questionId);
+      const quizId = Number(req.params.quizId);
+      const optionId = Number(req.params.optionId);
+      const request: UpdateOptionRequest = req.body;
+
+      const response = await OptionService.update(user, quizId, questionId, optionId, request);
+      res.status(200).json({
+        data: null,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async updateMany(req: RequestWithUser, res: Response, next: NextFunction) {
+    try {
+      const user = req.user!;
+      const questionId = Number(req.params.questionId);
+      const quizId = Number(req.params.quizId);
+      const request: UpdateManyOptionRequest = req.body;
+
+      const response = await OptionService.updateMany(user, quizId, questionId, request);
+      res.status(200).json({
+        data: null,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async remove(req: RequestWithUser, res: Response, next: NextFunction) {
     try {
       const user = req.user!;
@@ -44,7 +112,7 @@ export class OptionController {
 
       const response = await OptionService.remove(user, quizId, questionId, optionId);
       res.status(200).json({
-        data: response,
+        data: null,
       });
     } catch (error) {
       next(error);

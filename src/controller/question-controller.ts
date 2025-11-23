@@ -16,6 +16,18 @@ export class QuestionController {
       next(error);
     }
   }
+  static async get(req: RequestWithUser, res: Response, next: NextFunction) {
+    try {
+      const quizId = Number(req.params.quizId);
+      const questionId = Number(req.params.questionId);
+      const response = await QuestionService.get(req.user!, quizId, questionId);
+      res.status(200).json({
+        data: response,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
   static async getAll(req: RequestWithUser, res: Response, next: NextFunction) {
     try {
       const quizId = Number(req.params.quizId);

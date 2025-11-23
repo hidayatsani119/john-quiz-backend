@@ -35,6 +35,7 @@ model Quiz {
   userId    String
   user      User       @relation(fields: [userId], references: [id])
   questions Question[]
+  attempts  Attempt[]
 
   @@map("quizzes")
 }
@@ -53,6 +54,7 @@ model Question {
   points Int          @default(1)
 
   options Option[]
+  answers Answer[]
 
   @@map("questions")
 }
@@ -63,7 +65,34 @@ model Option {
   question   Question @relation(fields: [questionId], references: [id])
 
   text      String
-  isCorrect Boolean @default(false)
+  isCorrect Boolean  @default(false)
+  answers   Answer[]
 
   @@map("options")
+}
+
+model Attempt {
+  id          Int       @id @default(autoincrement())
+  quizId      Int
+  quiz        Quiz      @relation(fields: [quizId], references: [id])
+  studentName String
+  startedAt   DateTime  @default(now())
+  completedAt DateTime?
+  score       Int       @default(0)
+  answers     Answer[]
+
+  @@map("attempts")
+}
+
+model Answer {
+  id               Int      @id @default(autoincrement())
+  attemptId        Int
+  attempt          Attempt  @relation(fields: [attemptId], references: [id])
+  questionId       Int
+  question         Question @relation(fields: [questionId], references: [id])
+  selectedOptionId Int?
+  selectedOption   Option?  @relation(fields: [selectedOptionId], references: [id])
+  isCorrect        Boolean  @default(false)
+
+  @@map("answers")
 }

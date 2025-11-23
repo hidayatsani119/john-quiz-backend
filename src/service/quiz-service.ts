@@ -29,7 +29,7 @@ export class QuizService {
     });
 
     if (isQuizExist) {
-      throw new ResponseError(403, "Quiz exist");
+      throw new ResponseError(409, "Quiz exist");
     }
 
     const quizCode = crypto.randomBytes(4).toString("base64url").slice(0, 6).toUpperCase();
@@ -72,11 +72,11 @@ export class QuizService {
   }
 
   static async remove(user: JwtPayload, quizId: number) {
-    const quiz = await this.checkQuiz(user, quizId);
+    await this.checkQuiz(user, quizId);
     await prisma.quiz.delete({
       where: {
-        id: quiz.id,
-        userId: quiz.userId,
+        id: quizId,
+        userId: user.id,
       },
     });
   }

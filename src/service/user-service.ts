@@ -4,7 +4,7 @@ import { logger } from "../lib/logging";
 import { prisma } from "../lib/prisma";
 import {
   LoginUserRequest,
-  RegisteUserRequest,
+  RegisterUserRequest,
   UserResponse,
   toUserResponse,
   updateUserRequest,
@@ -14,19 +14,19 @@ import { Validation } from "../validation/validation";
 import bcrypt from "bcrypt";
 
 export class UserService {
-  static async register(request: RegisteUserRequest): Promise<UserResponse> {
+  static async register(request: RegisterUserRequest): Promise<UserResponse> {
     logger.debug(request);
     const createRequest = Validation.validate(UserValidation.REGISTER, request);
 
-    const isUserExist = await prisma.user.findUnique({
+    const totalUserWithEmail = await prisma.user.count({
       where: { email: createRequest.email },
     });
 
     const hashedPassword = await bcrypt.hash(createRequest.password, 10);
     createRequest.password = hashedPassword;
 
-    if (isUserExist) {
-      throw new ResponseError(403, "User is exist");
+    if (totalUserWithEmail > 0) {
+      throw new ResponseError(409, "User is exist");
     }
     return await prisma.user.create({
       data: createRequest,

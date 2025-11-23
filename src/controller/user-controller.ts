@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-import { RegisteUserRequest } from "../type/user-type";
+import { RegisterUserRequest } from "../type/user-type";
 import { UserService } from "../service/user-service";
 import { RequestWithUser } from "../lib/jwt";
 
-export class TeacherController {
+export class UserController {
   static async register(req: Request, res: Response, next: NextFunction) {
     try {
-      const request: RegisteUserRequest = req.body as RegisteUserRequest;
+      const request: RegisterUserRequest = req.body as RegisterUserRequest;
       const response = await UserService.register(request);
       res.status(200).json({
         data: response,
@@ -17,7 +17,7 @@ export class TeacherController {
   }
   static async login(req: Request, res: Response, next: NextFunction) {
     try {
-      const request: RegisteUserRequest = req.body as RegisteUserRequest;
+      const request: RegisterUserRequest = req.body as RegisterUserRequest;
       const response = await UserService.login(request);
       res.status(200).json({
         token: response,
