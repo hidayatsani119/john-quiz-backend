@@ -1,8 +1,11 @@
-import "dotenv/config";
-import { PrismaMariaDb } from "@prisma/adapter-mariadb";
-import { PrismaClient } from "../../generated/prisma/client";
-import { logger } from "./logging";
-const adapter = new PrismaMariaDb({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.prisma = void 0;
+require("dotenv/config");
+const adapter_mariadb_1 = require("@prisma/adapter-mariadb");
+const client_1 = require("@prisma/client");
+const logging_1 = require("./logging");
+const adapter = new adapter_mariadb_1.PrismaMariaDb({
     host: process.env.DATABASE_HOST,
     port: Number(process.env.DATABASE_PORT),
     user: process.env.DATABASE_USER,
@@ -10,7 +13,7 @@ const adapter = new PrismaMariaDb({
     database: process.env.DATABASE_NAME,
     connectionLimit: 5,
 });
-const prisma = new PrismaClient({
+const prisma = new client_1.PrismaClient({
     adapter,
     log: [
         { level: "query", emit: "event" },
@@ -19,17 +22,17 @@ const prisma = new PrismaClient({
         { level: "error", emit: "event" },
     ],
 });
+exports.prisma = prisma;
 prisma.$on("error", (e) => {
-    logger.error(e);
+    logging_1.logger.error(e);
 });
 prisma.$on("warn", (e) => {
-    logger.warn(e);
+    logging_1.logger.warn(e);
 });
 prisma.$on("info", (e) => {
-    logger.info(e);
+    logging_1.logger.info(e);
 });
 prisma.$on("query", (e) => {
-    logger.info(e);
+    logging_1.logger.info(e);
 });
-export { prisma };
 //# sourceMappingURL=prisma.js.map

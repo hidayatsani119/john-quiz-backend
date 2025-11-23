@@ -1,0 +1,1 @@
+{"version":3,"file":"option-type.d.ts","sourceRoot":"","sources":["../../src/type/option-type.ts"],"names":[],"mappings":"AAAA,MAAM,MAAM,mBAAmB,GAAG;IAChC,IAAI,EAAE,MAAM,CAAC;IACb,SAAS,EAAE,OAAO,CAAC;CACpB,CAAC;AAEF,MAAM,MAAM,uBAAuB,GAAG,mBAAmB,EAAE,CAAC;AAE5D,MAAM,MAAM,mBAAmB,GAAG,mBAAmB,CAAC;AAEtD,MAAM,MAAM,uBAAuB,GAAG,uBAAuB,CAAC"}

@@ -1,4 +1,4 @@
-import { Attempt } from "../../generated/prisma/client";
+import { Attempt } from "@prisma/client";
 import { ResponseError } from "../error/response-error";
 import { JwtPayload } from "../lib/jwt";
 import { prisma } from "../lib/prisma";

@@ -1,0 +1,1 @@
+{"version":3,"file":"option-validation.d.ts","sourceRoot":"","sources":["../../src/validation/option-validation.ts"],"names":[],"mappings":"AAAA,OAAO,CAAC,MAAM,KAAK,CAAC;AAEpB,qBAAa,gBAAgB;IAC3B,MAAM,CAAC,QAAQ,CAAC,MAAM;;;sBAGnB;IAEH,MAAM,CAAC,QAAQ,CAAC,UAAU;;;uBAAwB;IAElD,MAAM,CAAC,QAAQ,CAAC,MAAM;;;sBAAe;IAErC,MAAM,CAAC,QAAQ,CAAC,UAAU;;;uBAAmB;CAC9C"}

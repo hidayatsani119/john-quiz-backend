@@ -1,0 +1,37 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.privateRouter = void 0;
+const express_1 = __importDefault(require("express"));
+const auth_middleware_1 = require("../middleware/auth-middleware");
+const quiz_controller_1 = require("../controller/quiz-controller");
+const question_controller_1 = require("../controller/question-controller");
+const option_controller_1 = require("../controller/option-controller");
+const user_controller_1 = require("../controller/user-controller");
+const attempt_controller_1 = require("../controller/attempt-controller");
+exports.privateRouter = express_1.default.Router();
+exports.privateRouter.use(auth_middleware_1.authMiddleware);
+exports.privateRouter.get("/users/me", user_controller_1.UserController.me);
+exports.privateRouter.put("/users/me", user_controller_1.UserController.update);
+exports.privateRouter.post("/quizzes", quiz_controller_1.QuizController.create);
+exports.privateRouter.get("/quizzes/:id", quiz_controller_1.QuizController.get);
+exports.privateRouter.get("/quizzes", quiz_controller_1.QuizController.getAll);
+exports.privateRouter.put("/quizzes/:id", quiz_controller_1.QuizController.update);
+exports.privateRouter.delete("/quizzes/:id", quiz_controller_1.QuizController.remove);
+exports.privateRouter.post("/quizzes/:quizId/questions", question_controller_1.QuestionController.create);
+exports.privateRouter.get("/quizzes/:quizId/questions/:questionId", question_controller_1.QuestionController.get);
+exports.privateRouter.get("/quizzes/:quizId/questions", question_controller_1.QuestionController.getAll);
+exports.privateRouter.put("/quizzes/:quizId/questions/:questionId", question_controller_1.QuestionController.update);
+exports.privateRouter.delete("/quizzes/:quizId/questions/:questionId", question_controller_1.QuestionController.remove);
+exports.privateRouter.post("/quizzes/:quizId/questions/:questionId/options", option_controller_1.OptionController.create);
+exports.privateRouter.post("/quizzes/:quizId/questions/:questionId/options/bulk", option_controller_1.OptionController.createMany);
+exports.privateRouter.get("/quizzes/:quizId/questions/:questionId/options/:optionId", option_controller_1.OptionController.get);
+exports.privateRouter.get("/quizzes/:quizId/questions/:questionId/options", option_controller_1.OptionController.getAll);
+exports.privateRouter.put("/quizzes/:quizId/questions/:questionId/options/:optionId", option_controller_1.OptionController.update);
+exports.privateRouter.put("/quizzes/:quizId/questions/:questionId/options/bulk", option_controller_1.OptionController.updateMany);
+exports.privateRouter.delete("/quizzes/:quizId/questions/:questionId/options/:optionId", option_controller_1.OptionController.remove);
+exports.privateRouter.get("/quizzes/:quizId/attempts/summary", attempt_controller_1.AttemptController.summary);
+exports.privateRouter.get("/quizzes/attempts/:attemptId", attempt_controller_1.AttemptController.get);
+//# sourceMappingURL=private-api.js.map

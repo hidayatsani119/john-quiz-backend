@@ -1,5 +1,13 @@
-import express from "express";
-import { router } from "../route/api";
-export const app = express();
-app.use(router);
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.app = void 0;
+const express_1 = __importDefault(require("express"));
+const api_1 = require("../route/api");
+const cors_1 = __importDefault(require("cors"));
+exports.app = (0, express_1.default)();
+exports.app.use((0, cors_1.default)());
+exports.app.use("/api/", api_1.router);
 //# sourceMappingURL=web.js.map

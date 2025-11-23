@@ -1,12 +1,15 @@
-import { ZodError } from "zod";
-import { ResponseError } from "../error/response-error";
-export const errorMiddleware = async (error, req, res, next) => {
-    if (error instanceof ZodError) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.errorMiddleware = void 0;
+const zod_1 = require("zod");
+const response_error_1 = require("../error/response-error");
+const errorMiddleware = async (error, req, res, next) => {
+    if (error instanceof zod_1.ZodError) {
         res.status(400).json({
             errors: `Validation Error ${JSON.stringify(error)}`,
         });
     }
-    else if (error instanceof ResponseError) {
+    else if (error instanceof response_error_1.ResponseError) {
         res.status(error.status).json({
             errors: error.message,
         });
@@ -17,4 +20,5 @@ export const errorMiddleware = async (error, req, res, next) => {
         });
     }
 };
+exports.errorMiddleware = errorMiddleware;
 //# sourceMappingURL=error-middleware.js.map

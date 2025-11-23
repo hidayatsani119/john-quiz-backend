@@ -1,4 +1,4 @@
-import { Quiz } from "../../generated/prisma/client";
+import { Quiz } from "@prisma/client";
 import { ResponseError } from "../error/response-error";
 import { JwtPayload } from "../lib/jwt";
 import { prisma } from "../lib/prisma";

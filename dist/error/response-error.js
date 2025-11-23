@@ -1,4 +1,7 @@
-export class ResponseError extends Error {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ResponseError = void 0;
+class ResponseError extends Error {
     status;
     message;
     constructor(status, message) {
@@ -7,4 +10,5 @@ export class ResponseError extends Error {
         this.message = message;
     }
 }
+exports.ResponseError = ResponseError;
 //# sourceMappingURL=response-error.js.map

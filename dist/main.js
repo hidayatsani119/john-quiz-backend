@@ -1,6 +1,8 @@
-import { app } from "./application/web";
-import { logger } from "./lib/logging";
-app.listen(3000, () => {
-    logger.info("application statr on port:" + 3000);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const web_1 = require("./application/web");
+const logging_1 = require("./lib/logging");
+web_1.app.listen(3000, () => {
+    logging_1.logger.info("application statr on port:" + 3000);
 });
 //# sourceMappingURL=main.js.map

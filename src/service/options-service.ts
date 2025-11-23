@@ -1,4 +1,3 @@
-import { Option } from "../../generated/prisma/client";
 import { JwtPayload } from "../lib/jwt";
 import { prisma } from "../lib/prisma";
 import {
@@ -11,6 +10,7 @@ import { OptionValidation } from "../validation/option-validation";
 import { Validation } from "../validation/validation";
 import { QuestionService } from "./question-service";
 import { ResponseError } from "../error/response-error";
+import { Option } from "@prisma/client";
 
 export class OptionService {
   static async checkOption(questionId: number, optionId: number): Promise<Option> {
